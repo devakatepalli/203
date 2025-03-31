@@ -1,0 +1,10 @@
+#!/bin/sh 
+
+> format
+> prettier --write .
+
+index.js 575ms
+package-lock.json 148ms (unchanged)
+package.json 2ms (unchanged)
+project.html 394ms
+registration.html 44ms

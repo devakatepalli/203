@@ -1,36 +1,42 @@
-const todoList = (() => {
-  let todos = [];
+class TodoList {
+  constructor() {
+    this.todos = [];
+  }
 
-  return {
-    add: function (todo) {
-      todos.push(todo);
-    },
+  // Add a new todo
+  add(todo) {
+    this.todos.push(todo);
+  }
 
-    markAsComplete: function (index) {
-      if (todos[index]) {
-        todos[index].completed = true;
-      }
-    },
+  // Mark a todo as complete
+  markAsComplete(index) {
+    if (index >= 0 && index < this.todos.length) {
+      this.todos[index].completed = true;
+    }
+  }
 
-    getAll: function () {
-      return todos;
-    },
+  // Get all todos
+  getAll() {
+    return this.todos;
+  }
 
-    getOverdue: function () {
-      const today = new Date().toISOString().split("T")[0];
-      return todos.filter((todo) => todo.dueDate < today);
-    },
+  // Get overdue todos
+  getOverdueItems() {
+    const today = new Date().toISOString().split("T")[0];
+    return this.todos.filter((todo) => todo.dueDate < today);
+  }
 
-    getDueToday: function () {
-      const today = new Date().toISOString().split("T")[0];
-      return todos.filter((todo) => todo.dueDate === today);
-    },
+  // Get due today todos
+  getDueTodayItems() {
+    const today = new Date().toISOString().split("T")[0];
+    return this.todos.filter((todo) => todo.dueDate === today);
+  }
 
-    getDueLater: function () {
-      const today = new Date().toISOString().split("T")[0];
-      return todos.filter((todo) => todo.dueDate > today);
-    },
-  };
-})();
+  // Get due later todos
+  getDueLaterItems() {
+    const today = new Date().toISOString().split("T")[0];
+    return this.todos.filter((todo) => todo.dueDate > today);
+  }
+}
 
-module.exports = todoList;
+module.exports = TodoList;

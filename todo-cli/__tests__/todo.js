@@ -1,11 +1,10 @@
-const todoList = require("../todo");
+const TodoList = require("../todo");
 
 describe("Todo List Test Suite", () => {
+  let todoList;
+
   beforeEach(() => {
-    // Reset the todo list before each test
-    while (todoList.getAll().length) {
-      todoList.getAll().pop();
-    }
+    todoList = new TodoList(); // Create a new todo list before each test
   });
 
   test("should add a new todo", () => {
@@ -20,18 +19,18 @@ describe("Todo List Test Suite", () => {
   });
 
   test("should retrieve overdue items", () => {
-    todoList.add({ title: "Overdue Task", dueDate: "2025-03-30", completed: false });
-    expect(todoList.getOverdue().length).toBe(1);
+    todoList.add({ title: "Overdue Task", dueDate: "2024-03-30", completed: false });
+    expect(todoList.getOverdueItems().length).toBe(1);
   });
 
   test("should retrieve due today items", () => {
     const today = new Date().toISOString().split("T")[0];
-    todoList.add({ title: "Today's Task", dueDate: today, completed: false });
-    expect(todoList.getDueToday().length).toBe(1);
+    todoList.add({ title: "Today Task", dueDate: today, completed: false });
+    expect(todoList.getDueTodayItems().length).toBe(1);
   });
 
   test("should retrieve due later items", () => {
     todoList.add({ title: "Future Task", dueDate: "2025-04-10", completed: false });
-    expect(todoList.getDueLater().length).toBe(1);
+    expect(todoList.getDueLaterItems().length).toBe(1);
   });
 });

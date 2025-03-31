@@ -1,3 +1,4 @@
+// todo.js - Manages the Todo list
 const todoList = () => {
   let all = [];
 
@@ -6,27 +7,33 @@ const todoList = () => {
   };
 
   const markAsComplete = (index) => {
-    all[index].completed = true;
+    if (all[index]) {
+      all[index].completed = true;
+    }
   };
 
   const overdue = () => {
-    return all.filter((todo) => todo.dueDate < today);
+    return all.filter((todo) => new Date(todo.dueDate) < new Date());
   };
 
   const dueToday = () => {
+    const today = new Date().toISOString().split("T")[0];
     return all.filter((todo) => todo.dueDate === today);
   };
 
   const dueLater = () => {
-    return all.filter((todo) => todo.dueDate > today);
+    return all.filter((todo) => new Date(todo.dueDate) > new Date());
   };
 
   const toDisplayableList = (list) => {
     return list
       .map((todo) => {
         let checkbox = todo.completed ? "[x]" : "[ ]";
-        let dateDisplay = todo.dueDate === today ? "" : ` ${todo.dueDate}`;
-        return `${checkbox} ${todo.title}${dateDisplay}`;
+        let displayDate =
+          todo.dueDate === new Date().toISOString().split("T")[0]
+            ? ""
+            : todo.dueDate;
+        return `${checkbox} ${todo.title} ${displayDate}`.trim();
       })
       .join("\n");
   };
@@ -42,6 +49,7 @@ const todoList = () => {
   };
 };
 
+<<<<<<< HEAD
 // ####################################### #
 // DO NOT CHANGE ANYTHING BELOW THIS LINE. #
 // ####################################### #
@@ -86,3 +94,6 @@ let itemsDueLater = todos.dueLater();
 let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater);
 console.log(formattedItemsDueLater);
 console.log("\n\n");
+=======
+module.exports = todoList;
+>>>>>>> 602b8ce (Initial commit with todo-cli, http-server, and husky setup)
